@@ -13,7 +13,7 @@ const Dashboard = props => {
 
     return (
         <div className='Dashboard'>
-            <img src={Carrito} alt="" className='Main-Img' />
+            <img src={Carrito} alt="..." className='Main-Img' />
             <Button variant="contained" onClick={() => goTo('orders')}>Ir a Ordenes</Button>
         </div>
     )

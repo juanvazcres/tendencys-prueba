@@ -1,8 +1,6 @@
-import React from 'react'
 import Dashboard from '../../dashboard/view/Dashboard'
-
-const Orders = () => <div>Ordenes de compra</div>
-const OrderDetail = () => <div>Detalle de orden de compra</div>
+import Orders from '../../../pages/orders/view/Orders'
+import OrderDetail from '../../../pages/order-detail/view/OrderDetail'
 
 export const routes = [
     {
