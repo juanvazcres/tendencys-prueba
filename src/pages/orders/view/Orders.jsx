@@ -2,8 +2,9 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import OrdersPresenter from '../presenter/OrdersPresenter';
-import { ArrowBack } from '@mui/icons-material'
-import { Button } from '@mui/material';
+import { DataGrid } from '@mui/x-data-grid';
+import BackButton from '../../../components/back-button/view/BackButton';
+
 const Orders = props => {
   const ordersPresenter = new OrdersPresenter();
   const navigate = useNavigate();
@@ -27,11 +28,40 @@ const Orders = props => {
     getAllOrders();
   }, [])
 
-  return <div>
-    <div>
-      <Button onClick={() => goTo(-1)} variant="text"><ArrowBack /> Regresar</Button>
+  const columns = [
+    { field: 'id', headerName: 'ID', width: 150 },
+    { field: 'name', headerName: 'Orden', width: 100 },
+    /* {
+      field: 'fullName',
+      headerName: 'Full name',
+      description: 'This column has a value getter and is not sortable.',
+      sortable: false,
+      width: 160,
+      valueGetter: (params) =>
+        `${params.row.firstName || ''} ${params.row.lastName || ''}`,
+    }, */
+  ];
+
+  const onRowClick = (params) => {
+    localStorage.setItem('selectedOrder', JSON.stringify(params.row))
+    goTo('' + params.row.id)
+  }
+
+  return <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+    <BackButton />
+    <div style={{ height: 'fit-content', width: 'fit-content' }}>
+      <DataGrid
+        rows={data}
+        columns={columns}
+        initialState={{
+          pagination: {
+            paginationModel: { page: 0, pageSize: 5 },
+          },
+        }}
+        pageSizeOptions={[5, 10]}
+        onRowClick={onRowClick}
+      />
     </div>
-    {data.map((item, index) => <div key={index}>{JSON.stringify(item)}</div>)}
   </div>;
 }
 
