@@ -26,20 +26,12 @@ const Orders = props => {
 
   useEffect(() => {
     getAllOrders();
+    localStorage.removeItem('selectedOrder');
   }, [])
 
   const columns = [
     { field: 'id', headerName: 'ID', width: 150 },
     { field: 'name', headerName: 'Orden', width: 100 },
-    /* {
-      field: 'fullName',
-      headerName: 'Full name',
-      description: 'This column has a value getter and is not sortable.',
-      sortable: false,
-      width: 160,
-      valueGetter: (params) =>
-        `${params.row.firstName || ''} ${params.row.lastName || ''}`,
-    }, */
   ];
 
   const onRowClick = (params) => {
@@ -55,10 +47,9 @@ const Orders = props => {
         columns={columns}
         initialState={{
           pagination: {
-            paginationModel: { page: 0, pageSize: 5 },
+            paginationModel: { page: 0, pageSize: 10 },
           },
         }}
-        pageSizeOptions={[5, 10]}
         onRowClick={onRowClick}
       />
     </div>
