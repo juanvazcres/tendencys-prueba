@@ -1,4 +1,3 @@
-//import PropTypes from 'prop-types'
 import React from 'react'
 import logo from './img/LogoTendencys.svg';
 import './styles/Header.css';
@@ -10,7 +9,5 @@ const Header = () => {
         </header>
     )
 }
-
-Header.propTypes = {}
 
 export default Header

@@ -1,4 +1,3 @@
-//import PropTypes from 'prop-types'
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import OrdersPresenter from '../presenter/OrdersPresenter';
@@ -55,8 +54,6 @@ const Orders = props => {
     </div>
   </div>;
 }
-
-Orders.propTypes = {}
 
 export default Orders
 

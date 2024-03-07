@@ -1,13 +1,19 @@
-//import PropTypes from 'prop-types'
 import React, { useEffect, useState } from 'react'
 import BackButton from '../../../components/back-button/view/BackButton'
-//import { useParams, useNavigate } from 'react-router-dom';
-import { Typography } from '@mui/material';
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField, Typography } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 
 const OrderDetail = props => {
     const [selectedOrder, setSelectedOrder] = useState({ items: [] });
+    const [open, setOpen] = useState(false);
 
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
     useEffect(() => {
         let currentOrder = localStorage.getItem('selectedOrder');
         if (currentOrder) {
@@ -43,12 +49,60 @@ const OrderDetail = props => {
                         disableColumnSelector={true}
                         disableRowSelectionOnClick={true}
                     />
+                    <Button variant="outlined" onClick={handleClickOpen}>
+                        Open form dialog
+                    </Button>
                 </div>
             </div>
+
+            <Dialog
+                open={open}
+                onClose={handleClose}
+                PaperProps={{
+                    component: 'form',
+                    onSubmit: (event) => {
+                        event.preventDefault();
+                        const formData = new FormData(event.currentTarget);
+                        const formJson = Object.fromEntries(formData.entries());
+                        console.log(formJson);
+                        handleClose();
+                    },
+                }}
+            >
+                <DialogTitle>Subscribe</DialogTitle>
+                <DialogContent>
+                    <DialogContentText>
+                        To subscribe to this website, please enter your email address here. We
+                        will send updates occasionally.
+                    </DialogContentText>
+                    <TextField
+                        autoFocus
+                        required
+                        margin="dense"
+                        id="name"
+                        name="email"
+                        label="Email Address"
+                        type="email"
+                        fullWidth
+                        variant="standard"
+                    />
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleClose}>Cancel</Button>
+                    <Button type="submit">Subscribe</Button>
+                </DialogActions>
+            </Dialog>
         </div>
     )
 }
 
-OrderDetail.propTypes = {}
-
 export default OrderDetail
+
+
+/* 
+Saludo
+Mi nombre
+Que estudié y en dónde y hace cuanto
+
+
+*/
